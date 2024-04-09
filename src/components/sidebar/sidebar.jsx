@@ -13,7 +13,6 @@ const Sidebar = () => {
   };
 
   const handleItemClick = (item) => {
-    // Adicione aqui o redirecionamento para a página correspondente ao item clicado
     console.log(`Redirecionando para ${item}`);
   };
 
