@@ -16,9 +16,9 @@ export default function Login(){
             toast.error('Preencha os campos vazios!')
         }
         else{
-            if (email === 'admin' && password === 'pastel123'){
+            if (email === 'admin' && password === 'admin1'){
                 toast.success('Bem vindo!')
-                navigate("/home")
+                navigate("/dashboard")
             }
             else{
                 toast.error('E-mail/Senha incorretos!')

@@ -1,11 +1,12 @@
 import {useState, } from 'react'
 import { CiUser } from "react-icons/ci";
+import Sidebar from '../../components/sidebar/sidebar'
 
 export default function Home(){
 
         return(
-        <div className="container-center">
-            <h1>PAGINA HOME</h1>
+        <div className>
+            <Sidebar/>
         </div>
     )
 }
