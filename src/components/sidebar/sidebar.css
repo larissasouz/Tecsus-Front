@@ -5,7 +5,7 @@
   .sidebar {
     width: 200px;
     height: 100vh;
-    background-color: #3A3632;
+    background-color: #080b0f;
     color: #ffffff;
     position: absolute;
   }
@@ -23,7 +23,7 @@
   }
   
   .menu-item.active {
-    background-color: #209705;
+    background-color: #828282;
   }
 
   .page-container{
