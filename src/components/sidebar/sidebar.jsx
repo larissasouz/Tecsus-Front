@@ -17,7 +17,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="sidebar-container">
+    <div className="sidebar-container" data-testid="sidebar">
       <div className="sidebar">
         <ul>
           <li
