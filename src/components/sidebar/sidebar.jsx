@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './sidebar.css';
 
 const Sidebar = () => {
   const [hoveredItem, setHoveredItem] = useState(null);
+  const navigate = useNavigate();
 
   const handleMouseEnter = (item) => {
     setHoveredItem(item);
@@ -12,8 +14,8 @@ const Sidebar = () => {
     setHoveredItem(null);
   };
 
-  const handleItemClick = (item) => {
-    console.log(`Redirecionando para ${item}`);
+  const handleItemClick = (path) => {
+    navigate(path);
   };
 
   return (
@@ -21,7 +23,7 @@ const Sidebar = () => {
       <div className="sidebar">
         <ul>
           <li
-            onClick={() => handleItemClick('dashboard')}
+            onClick={() => handleItemClick('/dashboardAgua')}
             onMouseEnter={() => handleMouseEnter('dashboard')}
             onMouseLeave={handleMouseLeave}
             className={hoveredItem === 'dashboard' ? 'menu-item active' : 'menu-item'}
@@ -29,7 +31,15 @@ const Sidebar = () => {
             Dashboard
           </li>
           <li
-            onClick={() => handleItemClick('relatorio')}
+            onClick={() => handleItemClick('/updateDados')}
+            onMouseEnter={() => handleMouseEnter('update')}
+            onMouseLeave={handleMouseLeave}
+            className={hoveredItem === 'update' ? 'menu-item active' : 'menu-item'}
+          >
+            Atualizar Dados
+          </li>
+          <li
+            onClick={() => handleItemClick('/relatorio')}
             onMouseEnter={() => handleMouseEnter('relatorio')}
             onMouseLeave={handleMouseLeave}
             className={hoveredItem === 'relatorio' ? 'menu-item active' : 'menu-item'}
@@ -37,7 +47,7 @@ const Sidebar = () => {
             Relatório
           </li>
           <li
-            onClick={() => handleItemClick('configuracoes')}
+            onClick={() => handleItemClick('/configuracoes')}
             onMouseEnter={() => handleMouseEnter('configuracoes')}
             onMouseLeave={handleMouseLeave}
             className={hoveredItem === 'configuracoes' ? 'menu-item active' : 'menu-item'}
@@ -45,7 +55,7 @@ const Sidebar = () => {
             Configurações
           </li>
           <li
-            onClick={() => handleItemClick('sair')}
+            onClick={() => handleItemClick('/sair')}
             onMouseEnter={() => handleMouseEnter('sair')}
             onMouseLeave={handleMouseLeave}
             className={hoveredItem === 'sair' ? 'menu-item active' : 'menu-item'}
