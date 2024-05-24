@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@mui/icons-material": "^5.15.15",
+    "axios": "^1.7.2",
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
     "react-csv-reader": "^4.0.0",
