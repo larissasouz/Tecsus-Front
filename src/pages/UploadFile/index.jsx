@@ -3,6 +3,7 @@ import CSVReader from 'react-csv-reader';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import './upload.css';
+import Loader from '../../components/loader';
 
 import Sidebar from '../../components/sidebar/sidebar';
 import Title from '../../components/title/title';
@@ -14,12 +15,15 @@ export default function UploadFile() {
     const [fileInfo, setFileInfo] = useState(null);
     const [fileActivate, setFileActivate] = useState(null);
     const [typeFile, setTypeFile] = useState('con_agua.csv')
+    const [loader,setLoader] = useState(false)
 
     async function upload() {
         if (!csvData || !fileInfo) {
-            alert('Por favor, carregue um arquivo antes de fazer o upload.');
+            toast.warning('Por favor, carregue um arquivo antes de fazer o upload');
             return;
         }
+
+        setLoader(true)
 
         const formData = new FormData();
         formData.append('file', new Blob([csvData], { type: 'text/csv' }), fileInfo.name);
@@ -27,16 +31,21 @@ export default function UploadFile() {
         await axios.post('http://127.0.0.1:8000/upload', formData)
 
             .then(function (response) {
+                setLoader(false)
                 toast.success('Atualizado com sucesso!')
             })
 
             .catch(function (error) {
+                setLoader(false)
                 toast.error('Falha ao executar a atualização!')
             });
     }
 
     function handleSelectChange(e) {
         setTypeFile(e.target.value)
+        setFileInfo(null)
+        setCsvData(null)
+        setFileActivate(null)
     }
 
     const handleFileUpload = (data, fileInfo) => {
@@ -60,6 +69,9 @@ export default function UploadFile() {
 
     return (
         <div className='upload'>
+            <>
+            {loader && <Loader/>}
+            </>
             <Sidebar />
             <main className='page-container'>
                 <Title name={"Atualizar Dados"}>
