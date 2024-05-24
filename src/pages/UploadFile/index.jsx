@@ -42,10 +42,10 @@ export default function UploadFile() {
     }
 
     function handleSelectChange(e) {
-        setTypeFile(e.target.value)
         setFileInfo(null)
         setCsvData(null)
         setFileActivate(null)
+        setTypeFile(e.target.value)
     }
 
     const handleFileUpload = (data, fileInfo) => {
