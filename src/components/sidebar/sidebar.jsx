@@ -55,7 +55,7 @@ const Sidebar = () => {
             Configurações
           </li>
           <li
-            onClick={() => handleItemClick('/sair')}
+            onClick={() => handleItemClick('/')}
             onMouseEnter={() => handleMouseEnter('sair')}
             onMouseLeave={handleMouseLeave}
             className={hoveredItem === 'sair' ? 'menu-item active' : 'menu-item'}
