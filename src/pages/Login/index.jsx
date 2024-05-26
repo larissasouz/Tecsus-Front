@@ -18,7 +18,7 @@ export default function Login() {
         else {
             if (email === 'admin' && password === '12345') {
                 toast.success('Bem vindo!')
-                navigate("/dashboardAgua")
+                navigate("/dashboard")
             }
             else {
                 toast.error('E-mail/Senha incorretos!')
