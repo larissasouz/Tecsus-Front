@@ -90,9 +90,10 @@ export default function UploadFile() {
                     <div className='group-input'>
                         <label>Selecione o arquivo atualizado</label>
                         <div className='input-box'>
-                            {fileInfo ? <h2 className='arq-name'>Arquivo carregado: {fileInfo.name}</h2> : <h2 className='arq-name'></h2>}
-                            <CSVReader
-                                cssClass={'button-csv'}
+                            {fileInfo ? 
+                            <h2 className='arq-name'>Arquivo carregado: {fileInfo.name}</h2> : 
+                            <h2 className='arq-name'></h2>}
+                            <CSVReader inputId='button-csv'
                                 onFileLoaded={handleFileUpload}
                             />
                         </div>
