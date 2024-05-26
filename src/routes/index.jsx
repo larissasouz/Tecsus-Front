@@ -10,7 +10,7 @@ function RoutesApp(){
         <Routes>
             <Route path='/home' element={<Home/>}/>
             <Route path='/dashboard' element={<DashboardAgua/>}/>
-            <Route path='/upload' element={<UploadFile/>}/>
+            <Route path='/updateDados' element={<UploadFile/>}/>
             <Route path='/' element={<Login/>}/>
         </Routes>
     )

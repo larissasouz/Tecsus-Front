@@ -23,7 +23,7 @@ const Sidebar = () => {
       <div className="sidebar">
         <ul>
           <li
-            onClick={() => handleItemClick('/dashboardAgua')}
+            onClick={() => handleItemClick('/dashboard')}
             onMouseEnter={() => handleMouseEnter('dashboard')}
             onMouseLeave={handleMouseLeave}
             className={hoveredItem === 'dashboard' ? 'menu-item active' : 'menu-item'}
