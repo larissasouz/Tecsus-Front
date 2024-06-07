@@ -88,8 +88,9 @@ export default function UploadFile() {
                         </select>
                     </div>
                     <div className='group-input'>
-                        <label>Selecione o arquivo atualizado</label>
+                        <label htmlFor="fileInput">Selecione o arquivo atualizado</label>
                         <input
+                            id="fileInput"
                             type="file"
                             accept=".csv"
                             onChange={handleFileRead}
