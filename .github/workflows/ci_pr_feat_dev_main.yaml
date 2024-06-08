@@ -24,7 +24,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '14.x' # Versão do Node.js
+          node-version: "14.x" # Versão do Node.js
 
       # Instalar dependências
       - name: Install dependencies
@@ -36,7 +36,7 @@ jobs:
 
       # Executar os testes de integração
       - name: Run integration tests
-        if: github.base_ref != 'dev' && github.base_ref != 'main'
+        if: github.event.pull_request.head.ref == 'dev'
         run: npm run test
 
       # Notificar caso o teste falhe
@@ -47,8 +47,8 @@ jobs:
       - name: Merge pull request
         if: success()
         run: echo "Merging pull request."
-        
- #função que executa o merge do pull request apos approved-pull-request tiver exito
+
+  #função que executa o merge do pull request apos approved-pull-request tiver exito
   automerge:
     name: Merge Pull Request
     runs-on: [ubuntu-latest]
