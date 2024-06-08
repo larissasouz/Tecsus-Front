@@ -1,5 +1,4 @@
 {
-  "homepage": "https://b1nary-devs.github.io/Tecsus-Front/",
   "name": "tecsus",
   "private": true,
   "version": "0.0.0",
@@ -9,9 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test": "jest",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "test": "jest"
   },
   "dependencies": {
     "@mui/icons-material": "^5.15.15",
