@@ -1,16 +1,16 @@
-name: CI Pull Request Feature to Dev/Main
+name: Deploy Jekyll with GitHub Pages
 
 on:
   # Aciona a pipeline em pull requests aprovados para a branch dev
   pull_request_review:
     types: [submitted]
     branches:
-      - dev
+      - main
 
 jobs:
   approved-pull-request:
     if: github.event.review.state == 'approved'
-    if: github.event.pull_request.head.ref != 'dev'
+    if: github.event.pull_request.head.ref == 'dev'
     runs-on: ubuntu-latest # Máquina virtual Ubuntu que executa o job
 
     steps:
@@ -34,15 +34,42 @@ jobs:
       - name: Execute Build
         run: npm run build
 
-      - name: Merge pull request
-        if: success()
-        run: echo "Merging pull request."
+      # Executar os testes de integração
+      - name: Run integration tests
+        run: npm run test
 
-  #função que executa o merge do pull request apos approved-pull-request tiver exito
+      #Configuração do setup das paginas
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # Executar o build com Jekyll
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  # Deployment job
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+    #função que executa o merge do pull request apos approved-pull-request tiver exito
   automerge:
     name: Merge Pull Request
     runs-on: [ubuntu-latest]
     needs: [approved-pull-request]
+    if: github.event.pull_request.head.ref != 'main'
     steps:
       - name: Merge
         uses: actions/github-script@0.2.0
