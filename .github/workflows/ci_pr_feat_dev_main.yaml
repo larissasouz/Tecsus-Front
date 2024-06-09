@@ -44,7 +44,7 @@ jobs:
     needs: [approved-pull-request]
     steps:
       - name: Merge
-        uses: actions/github-script@v6
+        uses: actions/github-script@0.2.0
         with:
           github-token: ${{ secrets.TOKEN_ACCESS }}
           script: |
