@@ -74,8 +74,8 @@ jobs:
         with:
           github-token: ${{ secrets.TOKEN_ACCESS }}
           script: |
-            github.pulls.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
+            github.pullRequests.merge ({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              pull_number: context.payload.pull_request.number
             })
