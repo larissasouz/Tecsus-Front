@@ -9,8 +9,7 @@ on:
 
 jobs:
   approved-pull-request:
-    if: github.event.review.state == 'approved'
-    if: github.event.pull_request.head.ref == 'dev'
+    if: github.event.review.state == 'approved' || github.event.pull_request.head.ref == 'dev'
     runs-on: ubuntu-latest # Máquina virtual Ubuntu que executa o job
 
     steps:
@@ -69,7 +68,6 @@ jobs:
     name: Merge Pull Request
     runs-on: [ubuntu-latest]
     needs: [approved-pull-request]
-    if: github.event.pull_request.head.ref != 'main'
     steps:
       - name: Merge
         uses: actions/github-script@0.2.0
