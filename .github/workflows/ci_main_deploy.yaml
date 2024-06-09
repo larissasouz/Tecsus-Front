@@ -9,7 +9,7 @@ on:
 
 jobs:
   approved-pull-request:
-    if: github.event.review.state == 'approved' || github.event.pull_request.head.ref == 'dev'
+    if: github.event.review.state == 'approved' && github.event.pull_request.head.ref == 'dev'
     runs-on: ubuntu-latest # Máquina virtual Ubuntu que executa o job
 
     steps:
@@ -57,7 +57,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: approved-pull-request
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
@@ -70,12 +70,12 @@ jobs:
     needs: [approved-pull-request]
     steps:
       - name: Merge
-        uses: actions/github-script@0.2.0
+        uses: actions/github-script@v6
         with:
           github-token: ${{ secrets.TOKEN_ACCESS }}
           script: |
-            github.pullRequests.merge ({
-              owner: context.payload.repository.owner.login,
-              repo: context.payload.repository.name,
-              pull_number: context.payload.pull_request.number
+            github.pulls.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
             })
