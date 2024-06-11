@@ -44,20 +44,20 @@ jobs:
   # Deployment job
   deploy:
     runs-on: ubuntu-latest
-    needs: approved-pull-request
+    needs: [approved-pull-request]
     steps:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.6
         with:
           branch: gh-pages
-          folder: "/"      
+          folder: "dist"      
           token: ${{ secrets.TOKEN_ACCESS }}
 
-    #função que executa o merge do pull request apos approved-pull-request tiver exito
+#função que executa o merge do pull request apos approved-pull-request tiver exito
   automerge:
     name: Merge Pull Request
     runs-on: [ubuntu-latest]
-    needs: [approved-pull-request]
+    needs: [approved-pull-request,deploy]
     steps:
       - name: Merge
         uses: actions/github-script@0.2.0
