@@ -37,19 +37,9 @@ jobs:
       - name: Run integration tests
         run: npm run test
 
-      #Configuração do setup das paginas
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-
-      # Executar o build com Jekyll
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./
-          destination: ./_site
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Merge pull request
+        if: success()
+        run: echo "Merging pull request."
 
   # Deployment job
   deploy:
