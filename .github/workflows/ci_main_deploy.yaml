@@ -56,12 +56,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: approved-pull-request
     steps:
-      - name: Deploy with gh-pages
-        run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npx gh-pages -d build -u "github-actions-bot <support+actions@github.com>"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.6
+        with:
+          branch: gh-pages
+          folder: "/"      
+          token: ${{ secrets.TOKEN_ACCESS }}
 
     #função que executa o merge do pull request apos approved-pull-request tiver exito
   automerge:
