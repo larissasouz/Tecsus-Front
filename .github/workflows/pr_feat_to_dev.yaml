@@ -1,4 +1,4 @@
-name: CI Pull Request Feature to Dev/Main
+name: Pull Request Feature to Dev
 
 on:
   # Aciona a pipeline em pull requests aprovados para a branch dev
