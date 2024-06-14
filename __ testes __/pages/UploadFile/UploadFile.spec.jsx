@@ -56,7 +56,7 @@ describe('Componente UploadFile', () => {
     fireEvent.click(uploadButton);
 
     // Certifica que a solicitação de postagem do axios foi feita
-    await waitFor(() => expect(axios.post).toHaveBeenCalledWith('https://tecsus-etl-2.onrender.com/upload', expect.any(FormData)));
+    await waitFor(() => expect(axios.post).toHaveBeenCalledWith('http://127.0.0.1:8000/upload', expect.any(FormData)));
   });
 
   it('deve exibir um aviso ao tentar fazer upload sem selecionar um arquivo', async () => {
@@ -111,9 +111,7 @@ describe('Componente UploadFile', () => {
       </BrowserRouter>
     );
 
-
-    
-    // Renderiza o componente na pagina
+    // Renderiza o componente
     fireEvent.change(getByRole('combobox'), { target: { value: 'con_agua.csv' } });
 
     // Simula seleção de arquivo
