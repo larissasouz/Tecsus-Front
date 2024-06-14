@@ -113,7 +113,7 @@ describe('Componente UploadFile', () => {
 
 
     
-    // Renderiza o componente
+    // Renderiza o componente na pagina
     fireEvent.change(getByRole('combobox'), { target: { value: 'con_agua.csv' } });
 
     // Simula seleção de arquivo
