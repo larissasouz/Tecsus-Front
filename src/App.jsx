@@ -9,7 +9,7 @@ function App() {
     document.title = "B1nary Devs";
   }, []);
   return (
-      <RoutesApp/>
+      <RoutesApp/> 
   );
 }
 
