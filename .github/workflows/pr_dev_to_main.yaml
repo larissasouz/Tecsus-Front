@@ -40,6 +40,8 @@ jobs:
       - name: Merge pull request
         if: success()
         run: echo "Merging pull request."
+        
+
 
 #função que executa o merge do pull request apos approved-pull-request tiver exito
   automerge:
