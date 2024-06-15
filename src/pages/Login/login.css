@@ -1,65 +1,79 @@
-.container-center{
-    height: 100%;
+.container-center {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #35353e;
+    background: linear-gradient(to bottom, #0c0000, #0c0c50)
 }
 
-.login{
-    background-color: #EAEAEC;
-    width: 600px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+.login {
+    background-color: #ffffff;
+    width: 300px; /* Reduzindo a largura do formulário */
+    padding: 20px; /* Diminuindo o padding interno */
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-image: url('src/assets/teste.png'); /* Substitua pelo caminho da sua imagem */
+    background-size: cover; /* Garante que a imagem cubra todo o espaço */
+    background-position: center; /* Centraliza a imagem no container */
+    animation: fadeIn 1s ease; /* Adiciona uma animação de fade-in */
 }
 
-.login-area{
-    background-color: #181c2e;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 10;
+    }
+}
+
+.login-area {
+   
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 15px 0px;
+    border-radius: 10px 10px 0 0;
 }
 
-form{
+.login-area svg {
+    font-size: 3rem;
+    color: #ffffff;
+}
+
+form {
     margin-top: 1.5rem;
-    width: 90%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 15px 0px;
 }
 
-form h1{
+form h1 {
     text-align: center;
-    margin-bottom: 1rem;
-    color: #181c2e;
+    margin-bottom: 1.5rem;
+    color: #fafafa;
 }
 
-.login input{
+.login input {
     margin-bottom: 1rem;
-    height: 35px;
-    border-radius: 4px;
-    border: 0;
+    height: 45px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
     padding: 10px;
-    font-size: 15px;
-    background-color: #FFFF;
+    font-size: 1rem;
 }
 
-.login button{
-    height: 35px;
-    border: 0;
-    border-radius: 4px;
+.login button {
+    height: 45px;
+    border: none;
+    border-radius: 5px;
     background-color: #181c2e;
-    font-size: 1.3rem;
-    color: #FFFF;
+    font-size: 1.2rem;
+    color: #ffffff;
+    cursor: pointer;
 }
 
-.login a{
-    margin: 1.5rem 0;
-    color: #000;
-    cursor: pointer;
-    text-decoration: none;
+.login button:hover {
+    background-color: #0056b3;
 }

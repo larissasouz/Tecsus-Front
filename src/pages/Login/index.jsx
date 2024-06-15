@@ -1,36 +1,47 @@
-import { useState, } from 'react'
-import { CiUser } from "react-icons/ci";
+import React, { useState, useEffect } from 'react';
+import { BsFillPersonFill } from 'react-icons/bs'; // Importe o ícone BsFillPersonFill
 import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
 import './login.css'
 
 export default function Login() {
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState(''); // Removido o estado inicial de senha aqui
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Verificar se há uma nova senha armazenada
+        const storedNewPassword = localStorage.getItem('newPassword');
+        if (storedNewPassword) {
+            setPassword('');
+        } else {
+            // Caso não haja nova senha, manter o campo de senha vazio
+            setPassword('');
+        }
+    }, []);
 
     function handleSignIn(e) {
         e.preventDefault();
         if (email === '' || password === '') {
-            toast.error('Preencha os campos vazios!')
-        }
-        else {
-            if (email === 'admin' && password === '12345') {
-                toast.success('Bem vindo!')
-                navigate("/dashboard")
-            }
-            else {
-                toast.error('E-mail/Senha incorretos!')
+            toast.error('Preencha os campos vazios!');
+        } else {
+            // Verificar se há uma nova senha armazenada
+            const storedNewPassword = localStorage.getItem('newPassword');
+            if (storedNewPassword && password === storedNewPassword && email == 'admin')  {
+                toast.success('Bem vindo!');
+                navigate("/dashboard");
+            } else {
+                toast.error('E-mail/Senha incorretos!');
             }
         }
     }
+    
 
     return (
         <div className="container-center">
             <div className="login">
                 <div className="login-area">
-                    <CiUser size={100} color='#FFFF' />
+                    <BsFillPersonFill size={100} color='#FFFF' />
                 </div>
 
                 <form onSubmit={handleSignIn} data-testid="formulario">
