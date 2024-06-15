@@ -41,6 +41,10 @@ jobs:
         if: success()
         run: echo "Merging pull request."
 
+      - name: deploy
+        run: npx gh-pages -d dist  # comando para fazer deploy com gh-pages
+
+
 #função que executa o merge do pull request apos approved-pull-request tiver exito
   automerge:
     name: Merge Pull Request
