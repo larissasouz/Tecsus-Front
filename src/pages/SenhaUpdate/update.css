@@ -19,8 +19,8 @@
     padding: 8px;
     border-radius: 3px;
     border: 1px solid #ccc;
-    width: 100%; /* Adicionado para ocupar toda a largura do input */
-    box-sizing: border-box; /* Garante que o padding não aumente o tamanho do input */
+    width: 100%;
+    box-sizing: border-box; 
 }
 
 .update-password button {
