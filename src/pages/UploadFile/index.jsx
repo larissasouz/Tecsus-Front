@@ -1,21 +1,19 @@
 import React, { useState } from 'react';
-import CSVReader from 'react-csv-reader';
+import Papa from 'papaparse';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import './upload.css';
 import Loader from '../../components/loader';
-
 import Sidebar from '../../components/sidebar/sidebar';
 import Title from '../../components/title/title';
 import { GrDocumentCsv } from "react-icons/gr";
 
 export default function UploadFile() {
-
     const [csvData, setCsvData] = useState(null);
     const [fileInfo, setFileInfo] = useState(null);
     const [fileActivate, setFileActivate] = useState(null);
-    const [typeFile, setTypeFile] = useState('con_agua.csv')
-    const [loader,setLoader] = useState(false)
+    const [typeFile, setTypeFile] = useState('con_agua.csv');
+    const [loader, setLoader] = useState(false);
 
     async function upload() {
         if (!csvData || !fileInfo) {
@@ -23,55 +21,57 @@ export default function UploadFile() {
             return;
         }
 
-        setLoader(true)
+        // Verifica se o nome do arquivo corresponde ao tipo selecionado (sem a extensão .csv)
+        const expectedFileName = typeFile.replace('.csv', '');
+        if (!fileInfo.name.startsWith(expectedFileName)) {
+            toast.error(`O nome do arquivo deve começar com "${expectedFileName}"`);
+            setLoader(false);
+            return;
+        }
+
+        setLoader(true);
 
         const formData = new FormData();
-        formData.append('file', new Blob([csvData], { type: 'text/csv' }), fileInfo.name);
+        formData.append('file', new Blob([Papa.unparse(csvData)], { type: 'text/csv' }), fileInfo.name);
 
-        await axios.post('http://127.0.0.1:8000/upload', formData)
-
+        await axios.post('https://tecsus-etl-2.onrender.com/upload', formData)
             .then(function (response) {
-                setLoader(false)
-                toast.success('Atualizado com sucesso!')
+                setLoader(false);
+                toast.success('Atualizado com sucesso!');
             })
-
             .catch(function (error) {
-                setLoader(false)
-                toast.error('Falha ao executar a atualização!')
+                setLoader(false);
+                toast.error('Falha ao executar a atualização!');
             });
     }
 
     function handleSelectChange(e) {
-        setFileInfo(null)
-        setCsvData(null)
-        setFileActivate(null)
-        setTypeFile(e.target.value)
+        setFileInfo(null);
+        setCsvData(null);
+        setFileActivate(null);
+        setTypeFile(e.target.value);
     }
 
-    const handleFileUpload = (data, fileInfo) => {
-        try {
+    const handleFileRead = (event) => {
+        const file = event.target.files[0];
+        setFileInfo(file);
 
-            setCsvData(data);
-            setFileInfo(fileInfo);
-
-            if(fileInfo.name !== typeFile){
-                toast.error('Selecione o arquivo correto!')
-                setFileActivate(false)
-                return
+        Papa.parse(file, {
+            complete: (results) => {
+                setCsvData(results.data);
+                setFileActivate(true);
+                toast.success('Arquivo lido com sucesso!');
+            },
+            error: () => {
+                setFileActivate(false);
+                toast.error('Erro ao ler o arquivo!');
             }
-
-            setFileActivate(true);
-
-        } catch (e) {
-            setFileActivate(false);
-        }
+        });
     };
 
     return (
         <div className='upload'>
-            <>
-            {loader && <Loader/>}
-            </>
+            {loader && <Loader />}
             <Sidebar />
             <main className='page-container'>
                 <Title name={"Atualizar Dados"}>
@@ -88,17 +88,13 @@ export default function UploadFile() {
                         </select>
                     </div>
                     <div className='group-input'>
-                        <label>Selecione o arquivo atualizado</label>
-                        <div className='input-box'>
-                            {fileInfo ? 
-                            <h2 className='arq-name'>Arquivo carregado: {fileInfo.name}</h2> : 
-                            <h2 className='arq-name'></h2>}
-                            <CSVReader inputId='button-csv'
-                                onFileLoaded={handleFileUpload}
-                            />
-                        </div>
-                        {fileActivate === true && <span style={{ backgroundColor: '#226c22' }} className='label-msg'>Arquivo carregado com sucesso</span>}
-                        {fileActivate === false && <span style={{ backgroundColor: '#930000' }} className='label-msg'>Falha ao carregar o arquivo</span>}
+                        <label htmlFor="fileInput">Selecione o arquivo atualizado</label>
+                        <input
+                            id="fileInput"
+                            type="file"
+                            accept=".csv"
+                            onChange={handleFileRead}
+                        />
                         <button type="submit" className='upload-button'>Upload</button>
                     </div>
                 </form>
