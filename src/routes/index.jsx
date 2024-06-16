@@ -4,7 +4,6 @@ import Login from "../pages/Login/";
 import Home from "../pages/Home"
 import DashboardAgua from "../pages/Dashboard"
 import UploadFile from '../pages/UploadFile';
-import SenhaUpdate from '../pages/SenhaUpdate';
 
 function RoutesApp(){
     return(
@@ -12,7 +11,6 @@ function RoutesApp(){
             <Route path='/home' element={<Home/>}/>
             <Route path='/dashboard' element={<DashboardAgua/>}/>
             <Route path='/updateDados' element={<UploadFile/>}/>
-            <Route path='/senhaUpdate' element={<SenhaUpdate/>}/>
             <Route path='/' element={<Login/>}/>
         </Routes>
     )
